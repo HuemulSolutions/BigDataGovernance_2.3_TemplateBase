@@ -1,6 +1,7 @@
 package com.yourcompany.yourapplication
 
 import com.huemulsolutions.bigdata.common._
+import scala.collection.mutable.ArrayBuffer 
 
 /**
  * Configuración del ambiente
@@ -15,6 +16,18 @@ object globalSettings {
    Global.ImpalaEnabled = false
    Global.IMPALA_Setting.append(new huemul_KeyValuePath("production","jdbc:impala://{{000.000.000.000}}:21050/default"))
    Global.IMPALA_Setting.append(new huemul_KeyValuePath("experimental","jdbc:impala://{{000.000.000.000}}:21050/default"))
+   
+   /**
+    *NEW FROM 2.3 
+    */
+   
+   //Agregar variable con opciones de conexió JDBC para HIVE
+   val HIVE_Setting = new ArrayBuffer[huemul_KeyValuePath]()
+   HIVE_Setting.append(new huemul_KeyValuePath("production",s"jdbc:hive2://{{server}}:10000/default;user={{user}};password={{pass}}"))
+   HIVE_Setting.append(new huemul_KeyValuePath("experimental",s"jdbc:hive2://{{server}}:10000/default;user={{user}};password={{pass}}"))
+
+   //Para indicar el uso adicional de HIVE mediante JDBC para crear la metadata.
+   Global.externalBBDD_conf.Using_HIVE.setActive(true).setActiveForHBASE(true).setConnectionStrings(HIVE_Setting)
    
    /**
     *NEW FROM 2.1 
@@ -113,5 +126,6 @@ object globalSettings {
    Global.SANDBOX_BigFiles_Path.append(new huemul_KeyValuePath("production","hdfs:///user/data/production/sandbox/"))
    Global.SANDBOX_BigFiles_Path.append(new huemul_KeyValuePath("experimental","hdfs:///user/data/experimental/sandbox/"))
 
+   
 }
 
