@@ -24,10 +24,6 @@ class tbl_yourapplication_entidad_mes(huemulBigDataGov: huemul_BigDataGovernance
   this.setPartitionField("periodo_mes")
   //Frecuencia de actualización de los datos
   this.setFrequency(huemulType_Frequency.MONTHLY)
-  //nuevo desde version 2.0
-  //permite guardar versiones de los datos antes de que se vuelvan a ejecutar los procesos (solo para tablas de tipo master y reference)
-  this.setSaveBackup(false)
-  //nuevo desde versión 2.1
   //permite asignar un código de error personalizado al fallar la PK
   this.setPK_externalCode("COD_ERROR")
     
